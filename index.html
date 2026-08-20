@@ -3,57 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Roda Impian - Prototype</title>
-<style>
-:root{
-  --bg:#10131f; --panel:#191e2d; --panel2:#232a3e; --text:#fff;
-  --muted:#aeb6c9; --accent:#ffc928; --good:#35d07f; --bad:#ff5c6c;
-}
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,Helvetica,sans-serif;background:radial-gradient(circle at top,#252d48,#0d1019 65%);color:var(--text);min-height:100vh}
-header{text-align:center;padding:18px 20px 8px}
-h1{margin:0;font-size:clamp(28px,4vw,52px);letter-spacing:2px}
-.subtitle{color:var(--muted);margin-top:5px}
-.app{max-width:1250px;margin:auto;padding:15px}
-.top{display:flex;justify-content:center;align-items:stretch}
-.card{background:rgba(25,30,45,.94);border:1px solid #343c55;border-radius:18px;padding:18px;box-shadow:0 12px 35px rgba(0,0,0,.25)}
-.team{text-align:center;width:min(520px,100%)}
-.team h2{margin:0 0 7px;font-size:18px}
-.score{font-size:34px;font-weight:800;color:var(--accent)}
-.controls{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-top:6px}
-button{border:0;border-radius:10px;padding:10px 14px;font-weight:800;cursor:pointer;background:#34405d;color:white}
-button:hover{filter:brightness(1.15)}
-button.primary{background:var(--accent);color:#171717}
-button.good{background:var(--good);color:#102217}
-button.bad{background:var(--bad);color:#300a0e}
-button:disabled{opacity:.28;cursor:not-allowed}
-.board{margin-top:15px;text-align:center}
-.category{color:var(--accent);font-weight:800;letter-spacing:1.5px;text-transform:uppercase}
-.puzzle{min-height:145px;display:flex;justify-content:center;align-items:center;gap:10px;flex-wrap:wrap;padding:22px}
-.word{display:flex;gap:7px;margin:4px 12px}
-.letter{width:38px;height:48px;border-bottom:4px solid #dbe2f2;display:flex;align-items:center;justify-content:center;font-size:30px;font-weight:900}
-.space{width:24px}
-.keyboard{display:grid;grid-template-columns:repeat(13,1fr);gap:7px;margin-top:2px;margin-bottom:4px}
-.key{padding:12px 0;font-size:17px}
-.status{min-height:30px;margin:14px 0;font-weight:800;font-size:18px}
-.status.good{color:var(--good)} .status.bad{color:var(--bad)}
-.timerValue{font-size:42px;font-weight:900;color:var(--accent);line-height:1.05}
-.puzzleNav{margin-top:8px}
-.bottom{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-top:15px}
-.wheelWrap{text-align:center}
-.wheel{width:220px;height:220px;border-radius:50%;margin:5px auto 15px;background:conic-gradient(#ffc928 0 45deg,#4b7bec 45deg 90deg,#35d07f 90deg 135deg,#ff5c6c 135deg 180deg,#a36bff 180deg 225deg,#ff9f43 225deg 270deg,#2ec4b6 270deg 315deg,#f368e0 315deg 360deg);border:10px solid #e7ebf5;box-shadow:0 8px 25px #0008;position:relative;display:flex;align-items:center;justify-content:center;transition:transform 3s cubic-bezier(.12,.75,.2,1)}
-.wheel:after{content:"🎡";background:#171b28;border:5px solid white;border-radius:50%;width:70px;height:70px;display:flex;align-items:center;justify-content:center;font-size:35px}
-.pointer{font-size:30px;transform:rotate(180deg);margin-bottom:-15px}
-.admin label{display:block;font-size:13px;color:var(--muted);margin-top:10px}
-.admin input,.admin textarea{width:100%;padding:11px;border-radius:9px;border:1px solid #46516f;background:#0f1320;color:white;margin-top:5px;font:inherit;resize:vertical}
-.adminRow{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.small{font-size:13px;color:var(--muted);line-height:1.4}
-@media(max-width:850px){.top,.bottom{grid-template-columns:1fr}.keyboard{grid-template-columns:repeat(7,1fr)}}
-</style>
+<title>BijakWang Puzzle - Prototype</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-<header>
-  <h1>🎡 RODA IMPIAN</h1>
+<header>  
+  <h1> <img src="National BijakWang Logo.png" class="header-logo"> BIJAK WANG PUZZLE</h1>
   <div class="subtitle">Interactive Game Show Prototype</div>
 </header>
 
@@ -92,164 +47,39 @@ button:disabled{opacity:.28;cursor:not-allowed}
       <div id="wheelResult" class="status">Ready to spin</div>
     </div>
 
-    <div class="card admin">
-      <h2 style="margin-top:0">⚙️ Host Panel</h2>
-      <div class="small">Tukar puzzle dan kategori di sini. Tekan LOAD PUZZLE untuk mula.</div>
-      <label>Category</label>
-      <input id="catInput" value="Financial Literacy">
-      <label>Puzzles / Answers (1 puzzle per line)</label>
-      <textarea id="answersInput" rows="7" placeholder="MONEY IS POWER
-SAVE MONEY EVERY MONTH
-NEEDS BEFORE WANTS
-FINANCIAL FREEDOM
-BUDGET YOUR MONEY
-COMPOUND INTEREST
-EMERGENCY FUND
-SMART FINANCIAL GOALS
-PAY YOURSELF FIRST
-LIVE WITHIN YOUR MEANS">MONEY IS POWER
-SAVE MONEY EVERY MONTH
-NEEDS BEFORE WANTS
-FINANCIAL FREEDOM
-BUDGET YOUR MONEY
-COMPOUND INTEREST
-EMERGENCY FUND
-SMART FINANCIAL GOALS
-PAY YOURSELF FIRST
-LIVE WITHIN YOUR MEANS</textarea>
-      <div class="controls" style="justify-content:flex-start;margin-top:15px">
-        <button class="primary" onclick="loadPuzzleList()">LOAD ALL PUZZLES</button>
-      </div>
-      <div id="puzzleCounter" class="small" style="margin-top:10px;text-align:left">Puzzle 1 / 10</div>
-      <hr style="border:0;border-top:1px solid #343c55;margin:18px 0">
-      <div class="small">
-        Host tip: Peserta sebut huruf → klik huruf A-Z. Huruf yang betul akan muncul automatik.
-        Sambungkan laptop ke projector/LED dan tekan F11 untuk fullscreen.
-      </div>
-    </div>
+<div class="card admin" id="hostPanel">
+  <div class="adminHeader">
+    <h2 style="margin-top:0">⚙️ Host Panel</h2>
+    <button class="hideHostBtn" onclick="toggleHostPanel()">
+      HIDE PANEL
+    </button>
+  </div>
+  <div class="small">
+    Change the hint and puzzle list here.
+  </div>
+  <label>Titles / Hints (1 per puzzle)</label>
+  <textarea
+    id="hintInput"
+    rows="7"></textarea>
+  <label>Puzzles / Answers (1 puzzle per line)</label>
+  <textarea
+    id="answersInput"
+    rows="7"></textarea>
+  <button class="good" onclick="loadPuzzleList()">
+    LOAD ALL PUZZLES
+  </button>
+  <div id="puzzleCounter" class="small">
+    Puzzle 1 / 1
+  </div>
+  <hr>
+  <div class="small">
+    Host Tip: Participants call out a letter → click the corresponding letter A–Z. 
+    Correct letters will appear automatically. Connect the laptop to the projector/LED screen and press F11 for fullscreen.
+  </div>
+</div>
   </div>
 </div>
 
-<script>
-let answer = "MONEY IS POWER";
-let category = "FINANCIAL LITERACY";
-let guessed = new Set();
-let puzzleList = ["MONEY IS POWER"];
-let puzzleIndex = 0;
-let currentRound=1;
-let timer=60, timerId=null;
-
-const letters="ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
-const wheelValues=["RM100","RM500","RM1,000","LOSE TURN","RM200","RM750","BANKRUPT","RM300"];
-
-function renderPuzzle(){
-  const p=document.getElementById("puzzle");
-  p.innerHTML="";
-  answer.toUpperCase().split(" ").forEach((word,wi)=>{
-    const wd=document.createElement("div"); wd.className="word";
-    [...word].forEach(ch=>{
-      const el=document.createElement("div"); el.className="letter";
-      el.textContent=guessed.has(ch)?ch:"";
-      wd.appendChild(el);
-    });
-    p.appendChild(wd);
-    if(wi<answer.split(" ").length-1){
-      const sp=document.createElement("div");sp.className="space";p.appendChild(sp);
-    }
-  });
-}
-
-function renderKeyboard(){
-  const kb=document.getElementById("keyboard");kb.innerHTML="";
-  letters.forEach(l=>{
-    const b=document.createElement("button");b.className="key";b.textContent=l;
-    b.disabled=guessed.has(l);b.onclick=()=>guess(l);kb.appendChild(b);
-  });
-}
-function guess(l){
-  guessed.add(l);
-  const exists=answer.toUpperCase().includes(l);
-  const st=document.getElementById("status");
-  st.textContent=exists ? `✅ ${l} is correct!` : `❌ No ${l} in the answer.`;
-  st.className="status "+(exists?"good":"bad");
-  renderPuzzle();renderKeyboard();
-  if([...answer.toUpperCase()].filter(c=>c!==" ").every(c=>guessed.has(c))) {
-    st.textContent="🎉 PUZZLE SOLVED!";
-    st.className="status good";
-  }
-}
-function applyCurrentPuzzle(){
-  answer=(puzzleList[puzzleIndex]||"MONEY IS POWER").trim().toUpperCase();
-  category=document.getElementById("catInput").value.trim().toUpperCase()||"FINANCIAL LITERACY";
-  guessed.clear();
-  document.getElementById("category").textContent=category;
-  document.getElementById("status").textContent="Choose a letter!";
-  document.getElementById("status").className="status";
-  document.getElementById("puzzleCounter").textContent=`Puzzle ${puzzleIndex+1} / ${puzzleList.length}`;
-  renderPuzzle();renderKeyboard();
-}
-
-function loadPuzzleList(){
-  const raw=document.getElementById("answersInput").value;
-  puzzleList=raw.split(/\n/).map(x=>x.trim()).filter(Boolean).map(x=>x.toUpperCase());
-  if(!puzzleList.length) puzzleList=["MONEY IS POWER"];
-  puzzleIndex=0;
-  applyCurrentPuzzle();
-}
-
-function nextPuzzle(){
-  if(!puzzleList.length) loadPuzzleList();
-  else {
-    puzzleIndex=(puzzleIndex+1)%puzzleList.length;
-    applyCurrentPuzzle();
-  }
-}
-
-function prevPuzzle(){
-  if(!puzzleList.length) loadPuzzleList();
-  else {
-    puzzleIndex=(puzzleIndex-1+puzzleList.length)%puzzleList.length;
-    applyCurrentPuzzle();
-  }
-}
-
-function loadPuzzle(){
-  loadPuzzleList();
-}
-
-function revealAnswer(){
-  answer.toUpperCase().replace(/[^A-Z]/g,"").split("").forEach(c=>guessed.add(c));
-  document.getElementById("status").textContent="💡 ANSWER REVEALED";
-  document.getElementById("status").className="status good";
-  renderPuzzle();renderKeyboard();
-}
-function resetPuzzle(){loadPuzzle()}
-
-function resetTimer(){
-  clearInterval(timerId);timer=60;document.getElementById("timer").textContent=timer;
-}
-function startTimer(){
-  clearInterval(timerId);
-  timerId=setInterval(()=>{
-    timer--;document.getElementById("timer").textContent=timer;
-    if(timer<=0){clearInterval(timerId);document.getElementById("status").textContent="⏰ TIME'S UP!";document.getElementById("status").className="status bad";}
-  },1000);
-}
-function nextRound(){
-  currentRound++;
-  document.getElementById("round").textContent=currentRound;
-  resetTimer();
-  nextPuzzle();
-}
-function spinWheel(){
-  const wheel=document.getElementById("wheel");
-  const idx=Math.floor(Math.random()*wheelValues.length);
-  const degrees=1440+idx*(360/wheelValues.length)+Math.random()*20;
-  wheel.style.transform=`rotate(${degrees}deg)`;
-  document.getElementById("wheelResult").textContent="Spinning...";
-  setTimeout(()=>document.getElementById("wheelResult").textContent="🎯 "+wheelValues[idx],3000);
-}
-loadPuzzleList();
-</script>
+<script src="game.js"></script>
 </body>
 </html>
